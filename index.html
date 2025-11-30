@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Maniru Ibrahim | Applied Mathematics & Data Science</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Portfolio of Maniru Ibrahim – Applied Mathematician specialising in continuum modelling, data science, and computational simulation."
+  />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #020617;
+      --card: #020818;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.1);
+      --text: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      --shadow-soft: 0 22px 45px rgba(0, 0, 0, 0.55);
+      --radius-lg: 14px;
+      --radius-sm: 8px;
+      --radius-pill: 999px;
+      --transition: 0.22s ease-out;
+      --max-width: 960px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #000 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Layout */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.5rem 1.2rem 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .shell {
+        padding: 2rem 1.5rem 4rem;
+      }
+    }
+
+    /* Top nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.9),
+        rgba(15, 23, 42, 0.85),
+        transparent
+      );
+      border-bottom: 1px solid rgba(15, 23, 42, 0.8);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.8rem 1.2rem 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-logo {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: radial-gradient(circle at 20% 0%, #22c55e, #16a34a 35%, #065f46 100%);
+      color: #e5e7eb;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+    }
+
+    .nav-name {
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-title {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      padding: 0.25rem 0.4rem;
+      border-radius: 999px;
+      transition: background var(--transition), color var(--transition),
+        transform 0.15s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 2.2rem;
+      padding-bottom: 2.4rem;
+      display: grid;
+      gap: 1.8rem;
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+        align-items: center;
+        gap: 2.4rem;
+      }
+    }
+
+    .hero-main h1 {
+      margin: 0 0 0.6rem;
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      letter-spacing: 0.02em;
+    }
+
+    .hero-subtitle {
+      color: var(--accent);
+      font-size: 0.9rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-text {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      line-height: 1.7;
+      max-width: 37rem;
+    }
+
+    .hero-badges {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: radial-gradient(circle at 0 0, rgba(34, 197, 94, 0.09), transparent 55%);
+    }
+
+    .hero-actions {
+      margin-top: 1.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .btn {
+      border-radius: var(--radius-pill);
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition),
+        border-color var(--transition), transform 0.15s ease-out,
+        box-shadow 0.15s ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(22, 163, 74, 0.45);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #4ade80, #22c55e);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      border-color: rgba(31, 41, 55, 0.9);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: rgba(55, 65, 81, 1);
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .hero-side {
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, #22c55e15, transparent 55%),
+        linear-gradient(145deg, #020617, #020617);
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-soft);
+      padding: 1.3rem 1.3rem 1.2rem;
+    }
+
+    @media (min-width: 768px) {
+      .hero-side {
+        padding: 1.6rem 1.6rem 1.4rem;
+      }
+    }
+
+    .hero-side-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-side-list {
+      list-style: none;
+      margin: 0 0 0.8rem;
+      padding: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-side-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px dashed rgba(31, 41, 55, 0.9);
+    }
+
+    .hero-side-label {
+      color: #9ca3af;
+    }
+
+    .hero-side-value {
+      text-align: right;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .chip {
+      padding: 0.1rem 0.5rem;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+      section {
+        margin-bottom: 3rem;
+      }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #22c55e10, transparent 55%),
+        linear-gradient(to bottom right, #020617, #020617);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(30, 64, 175, 0.18);
+      padding: 1rem 1rem 0.9rem;
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.95);
+    }
+
+    .card h3 {
+      margin: 0 0 0.15rem;
+      font-size: 1rem;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .card p {
+      margin: 0.25rem 0 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 0.1rem 0.55rem;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      color: var(--text-muted);
+    }
+
+    /* Timeline list */
+    .timeline {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-left: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .timeline-item {
+      padding-left: 0.9rem;
+      margin-bottom: 0.8rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 0.35rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .timeline-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .timeline-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-text {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Contact */
+    .contact-card {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    @media (min-width: 640px) {
+      .contact-card {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      }
+    }
+
+    .contact-main p {
+      margin: 0 0 0.45rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: 0.45rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-value {
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 1.6rem 1.2rem 2rem;
+      border-top: 1px solid rgba(15, 23, 42, 0.95);
+      background: radial-gradient(circle at bottom, #22c55e10, #020617 55%, #020617);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    footer-inner {
+      display: block;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Small helper */
+    .muted {
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- NAVBAR -->
+    <header class="nav">
+      <div class="nav-inner">
+        <div class="nav-left">
+          <div class="nav-logo">MI</div>
+          <div>
+            <div class="nav-name">Maniru Ibrahim</div>
+            <div class="nav-title">Applied Mathematics · Data Science</div>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#research">Research</a>
+          <a href="#projects">Projects</a>
+          <a href="#teaching">Teaching</a>
+          <a href="#publications">Publications</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <!-- HERO -->
+      <section class="hero" id="about">
+        <div class="hero-main">
+          <div class="hero-subtitle">Applied Mathematics · Drug Delivery · Data Science</div>
+          <h1>Modelling complex systems with mathematics & computation.</h1>
+          <p class="hero-text">
+            I am an Applied Mathematician and PhD candidate at the University of Limerick,
+            specialising in continuum modelling, soft-matter systems, and computational
+            simulation of drug release from degrading polymers. I enjoy turning messy,
+            real-world questions into clear mathematical models and usable tools.
+          </p>
+          <div class="hero-badges">
+            <span class="badge">PhD · Applied Mathematics (2021–2025)</span>
+            <span class="badge">Continuum & PDE Modelling</span>
+            <span class="badge">Python · MATLAB · COMSOL</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="cv.pdf" target="_blank" rel="noopener">
+              View CV
+            </a>
+            <a
+              class="btn btn-ghost"
+              href="https://github.com/Manirmaths"
+              target="_blank"
+              rel="noopener"
+            >
+              GitHub
+            </a>
+            <a
+              class="btn btn-ghost"
+              href="https://www.linkedin.com/in/maniru-ibrahim"
+              target="_blank"
+              rel="noopener"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="hero-side-title">Snapshot</div>
+          <ul class="hero-side-list">
+            <li>
+              <span class="hero-side-label">Location</span>
+              <span class="hero-side-value">Clare / Limerick, Ireland</span>
+            </li>
+            <li>
+              <span class="hero-side-label">Current role</span>
+              <span class="hero-side-value">PhD Researcher, UL</span>
+            </li>
+            <li>
+              <span class="hero-side-label">Research</span>
+              <span class="hero-side-value">Drug release · Degrading polymers</span>
+            </li>
+            <li>
+              <span class="hero-side-label">Methods</span>
+              <span class="hero-side-value">PDEs · Asymptotics · FEM/FDM</span>
+            </li>
+          </ul>
+          <div class="chip-row">
+            <span class="chip">Python (NumPy/SciPy, scikit-learn)</span>
+            <span class="chip">MATLAB</span>
+            <span class="chip">COMSOL Multiphysics</span>
+            <span class="chip">Continuum & Multiscale Modelling</span>
+            <span class="chip">Data Analysis & Visualisation</span>
+          </div>
+        </aside>
+      </section>
+
+      <!-- RESEARCH -->
+      <section id="research">
+        <div class="section-header">
+          <div class="section-title">Research</div>
+          <div class="section-kicker">
+            Modelling drug release, degradation, and soft-matter systems.
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Drug release from degrading polymers</h3>
+            <div class="card-meta">
+              PhD, University of Limerick · 2021–2025
+            </div>
+            <p>
+              Developing PDE-based and moving-boundary models for drug release from eroding
+              and degrading porous structures. Combining continuum mechanics, asymptotic
+              analysis, numerical simulation, and comparison with experimental data.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Nonlinear diffusion–reaction systems</span>
+              <span class="pill">Moving boundaries</span>
+              <span class="pill">Finite dissolution rate</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Soft-matter & adsorption systems</h3>
+            <div class="card-meta">
+              ICMS & MAC-MIGS Modelling Camp · 2024
+            </div>
+            <p>
+              Built continuum adsorption–transport models for contaminant capture in
+              packed-column systems. Reduced PDE systems via scaling and model reduction,
+              implemented numerical solvers, and analysed breakthrough curves to guide
+              design and operating regimes.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Packed columns</span>
+              <span class="pill">Transport & adsorption</span>
+              <span class="pill">Parameter estimation</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="section-header">
+          <div class="section-title">Selected Projects</div>
+          <div class="section-kicker">
+            Turning open-ended questions into quantitative tools.
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>British Red Cross · Text analytics toolkit</h3>
+            <div class="card-meta">2024 · Python · NLP · Visualisation</div>
+            <p>
+              Processed 1,900+ Integrated Care Systems PDFs using Python. Built pipelines
+              for parsing, TF-IDF, clustering, and sentiment analysis, and delivered a
+              reusable analytics toolkit for exploration and decision support.
+            </p>
+            <div class="pill-row">
+              <span class="pill">NLP · TF-IDF</span>
+              <span class="pill">Topic / cluster analysis</span>
+              <span class="pill">Stakeholder dashboards</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>FareShare · Multi-dataset food distribution analysis</h3>
+            <div class="card-meta">2022 · Python · R · SQL</div>
+            <p>
+              Analysed 700k+ rows of organisational and food distribution data. Applied
+              topic modelling and clustering to segment organisations and menu types,
+              generating actionable recommendations for food redistribution strategy.
+            </p>
+            <div class="pill-row">
+              <span class="pill">LDA topic modelling</span>
+              <span class="pill">Data cleaning & integration</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Limerick Wave · Wave energy forecasting</h3>
+            <div class="card-meta">2021 · Time series · Energy systems</div>
+            <p>
+              Merged and cleaned 800k+ buoy observations. Benchmarked ARIMA and LSTM
+              models to forecast power for multiple WEC types, and linked forecasts to
+              25-year cost/payback analysis.
+            </p>
+            <div class="pill-row">
+              <span class="pill">ARIMA</span>
+              <span class="pill">LSTM</span>
+              <span class="pill">Forecast + economics</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>TCS · Resume parsing & document search</h3>
+            <div class="card-meta">2022–2023 · Tata Consultancy Services</div>
+            <p>
+              Built NLP pipelines to parse CVs, extract structured entities, and match
+              candidates to roles. Prototyped semantic search and recommendation for large
+              document collections, deploying components on Azure and visualising results
+              in Tableau.
+            </p>
+            <div class="pill-row">
+              <span class="pill">NLP & search</span>
+              <span class="pill">Azure</span>
+              <span class="pill">Tableau</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- TEACHING -->
+      <section id="teaching">
+        <div class="section-header">
+          <div class="section-title">Teaching & Outreach</div>
+          <div class="section-kicker">
+            Supporting students in mathematics and data science.
+          </div>
+        </div>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <div class="timeline-title">
+              Graduate Teaching Assistant · University of Limerick
+            </div>
+            <div class="timeline-meta">2021–2024 · Engineering maths, calculus, linear algebra</div>
+            <p class="timeline-text">
+              Delivered tutorials, supported labs, and marked assessments across multiple
+              mathematics and statistics modules.
+            </p>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-title">
+              Tutor · Maths Learning Centre & Disability Support Service
+            </div>
+            <div class="timeline-meta">2021–2025</div>
+            <p class="timeline-text">
+              Provided one-to-one mathematics and statistics support, creating an
+              accessible learning environment for a wide range of students.
+            </p>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-title">Founder & Tutor · Arewa Tutorials (YouTube)</div>
+            <div class="timeline-meta">2019–present</div>
+            <p class="timeline-text">
+              Produce accessible maths video lessons in English and Hausa, along with
+              exam-prep resources for secondary and university-level students.
+            </p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- PUBLICATIONS -->
+      <section id="publications">
+        <div class="section-header">
+          <div class="section-title">Publications & Talks</div>
+          <div class="section-kicker">
+            A selection of recent work. Full list on Google Scholar.
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Finite dissolution-rate drug release</h3>
+            <div class="card-meta">
+              Journal of Computational and Applied Mathematics, 2025 (First author)
+            </div>
+            <p>
+              From a continuous-field description of dissolution-limited drug release to a
+              moving-boundary formulation, with asymptotic analysis and numerical
+              validation.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Conferences & seminars</h3>
+            <div class="card-meta">BAMC · Irish Mathematical Society · MACSI</div>
+            <p>
+              <strong>BAMC 2024:</strong> A Moving Boundary Approach to Control Drug Release with
+              Finite Dissolution Rate. <br />
+              <strong>Irish Mathematical Society 2025:</strong> Drug Eluting Maths (poster).
+            </p>
+          </article>
+        </div>
+        <p class="muted" style="margin-top: 0.8rem;">
+          For a full publication list, see
+          <a
+            href="https://scholar.google.com/citations?user=meFmL2sAAAAJ&hl=en"
+            target="_blank"
+            rel="noopener"
+            >Google Scholar</a
+          >.
+        </p>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="section-header">
+          <div class="section-title">Contact</div>
+          <div class="section-kicker">
+            Open to research collaborations and applied modelling projects.
+          </div>
+        </div>
+        <div class="card contact-card">
+          <div class="contact-main">
+            <p>
+              If you’d like to discuss research, industry collaborations, or data-driven
+              modelling projects, the best way to reach me is by email or LinkedIn.
+            </p>
+            <p>
+              I’m especially interested in problems involving continuum modelling,
+              soft-matter and polymer systems, drug delivery, and data-driven
+              decision-making.
+            </p>
+          </div>
+          <div class="contact-grid">
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-value">
+                <a href="mailto:maniru.ibrahim@ul.ie">maniru.ibrahim@ul.ie</a>
+              </div>
+            </div>
+            <div>
+              <div class="contact-label">GitHub</div>
+              <div class="contact-value">
+                <a href="https://github.com/Manirmaths" target="_blank" rel="noopener"
+                  >github.com/Manirmaths</a
+                >
+              </div>
+            </div>
+            <div>
+              <div class="contact-label">LinkedIn</div>
+              <div class="contact-value">
+                <a
+                  href="https://www.linkedin.com/in/maniru-ibrahim"
+                  target="_blank"
+                  rel="noopener"
+                  >linkedin.com/in/maniru-ibrahim</a
+                >
+              </div>
+            </div>
+            <div>
+              <div class="contact-label">Google Scholar</div>
+              <div class="contact-value">
+                <a
+                  href="https://scholar.google.com/citations?user=meFmL2sAAAAJ&hl=en"
+                  target="_blank"
+                  rel="noopener"
+                  >Google Scholar profile</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div>© <span id="year"></span> Maniru Ibrahim</div>
+        <div class="footer-links">
+          <a href="#about">Top</a>
+          <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+          <a href="mailto:maniru.ibrahim@ul.ie">Email</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Set current year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
